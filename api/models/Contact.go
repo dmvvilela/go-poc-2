@@ -6,13 +6,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/badoux/checkmail"
 	"github.com/jinzhu/gorm"
 )
 
 type Contact struct {
 	ID        uint64    `gorm:"primary_key;auto_increment" json:"id"`
-	Name      string    `gorm:"size:255;not null;unique" json:"name"`
-	Email     string    `gorm:"size:255;not null;" json:"email"`
+	Name      string    `gorm:"size:255;not null;" json:"name"`
+	Email     string    `gorm:"size:255;not null;unique" json:"email"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
@@ -31,6 +32,9 @@ func (c *Contact) Validate() error {
 	}
 	if c.Email == "" {
 		return errors.New("Required Email")
+	}
+	if err := checkmail.ValidateFormat(c.Email); err != nil {
+		return errors.New("Invalid Email")
 	}
 	return nil
 }
