@@ -1,6 +1,12 @@
+# Go lang POC 2 - Daniel Vilela
+
 Golang CRUD with gorilla mux, mysql or postgresql and all the tests.
 
+It is an API for contacts with name and email (unique).
+
 Create a .env file like below. Just uncomment if you want to use mysql or postgres and change it for your user and password.
+
+It uses different databases for production and for testing, so create them accordingly.
 
 ```
 # Postgres Live
